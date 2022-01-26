@@ -39,7 +39,34 @@ namespace RMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => CanLogIn);
             }
         }
-       public bool CanLogIn
+
+        public bool IsErrorVisible
+        {
+            get
+            {
+                bool output = false;
+                if (ErrorMessage?.Length > 0)
+                {
+                    output = true;
+                }
+                return output;
+            }
+
+        }
+        private string  _errorMessage;
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                NotifyOfPropertyChange(() => IsErrorVisible);
+                NotifyOfPropertyChange(() => ErrorMessage);
+            }
+        }
+
+        public bool CanLogIn
         {
             get
             {
@@ -52,16 +79,17 @@ namespace RMDesktopUI.ViewModels
 
             }
         }
-        public async Task LogIn()
+        public async Task Login()
         {
             try
             {
                 var result = await _apiHelper.Authenticate(UserName, Password);
+                ErrorMessage = "Succesfully LogIn";
             }
-            catch (Exception)
+            catch ( Exception ex )
             {
 
-                throw;
+                ErrorMessage = ex.Message;
             }
         }
 
