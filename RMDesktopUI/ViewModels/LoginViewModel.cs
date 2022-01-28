@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using RMDesktopUI.Helpers;
+using RMDesktopUI.Library.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,7 @@ namespace RMDesktopUI.ViewModels
         private string _userName;
         private IAPIHelper _apiHelper;
         private string _password;
+        private IEventAggregator _events;
         public LoginViewModel(IAPIHelper apihelper)
         {
             _apiHelper = apihelper;
@@ -85,6 +86,9 @@ namespace RMDesktopUI.ViewModels
             {
                 var result = await _apiHelper.Authenticate(UserName, Password);
                 ErrorMessage = "Succesfully LogIn";
+                await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
+
+//                await _events.PublishOnUIThreadAsync(new LogOnEvent(), new CancellationToken());
             }
             catch ( Exception ex )
             {
