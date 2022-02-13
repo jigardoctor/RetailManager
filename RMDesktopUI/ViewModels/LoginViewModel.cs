@@ -83,12 +83,13 @@ namespace RMDesktopUI.ViewModels
 
             }
         }
-        public async Task Login()
+        public async Task LogIn()
         {
             try
             {
+                ErrorMessage = "";
                 var result = await _apiHelper.Authenticate(UserName, Password);
-                ErrorMessage = "Succesfully LogIn";
+                //ErrorMessage = "Succesfully LogIn";
                 await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
 
                _events.PublishOnUIThread(new LogOnEvent());
