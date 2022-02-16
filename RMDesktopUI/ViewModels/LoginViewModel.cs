@@ -11,9 +11,9 @@ namespace RMDesktopUI.ViewModels
 {
    public  class LoginViewModel :Screen
     {
-        private string _userName;
+        private string _userName = "digital@gmail.com";
         private IAPIHelper _apiHelper;
-        private string _password;
+        private string _password="Pwd12345.";
         private IEventAggregator _events;
 
         public LoginViewModel(IAPIHelper apihelper ,IEventAggregator events)

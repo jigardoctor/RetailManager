@@ -20,7 +20,7 @@ namespace RMDesktopUI.ViewModels
             _saleVM = saleVM;
             _container = container;
             _events.Subscribe(this);
-            ActivateItem(_container.GetInstance<LoginViewModel>());
+            ActivateItem(IoC.Get<LoginViewModel>());
         }
 
         public void Handle(LogOnEvent message)
