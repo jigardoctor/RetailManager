@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 using RMDesktopUI.Library.Helper;
 using AutoMapper;
 using RMDesktopUI.Models;
-using System.Collections.Generic;
+ using System.Collections.Generic;
+
 
 namespace RMDesktopUI.ViewModels
 {
@@ -31,7 +32,32 @@ namespace RMDesktopUI.ViewModels
         protected override async void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            await LoadProducts();
+            try
+            {
+                await LoadProducts();
+            }
+            catch (Exception ex)
+            {
+                //dynamic settings = new ExpandoObject();
+                //settings.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                //settings.ResizeMode = ResizeMode.NoResize;
+                //settings.Title = "System Error";
+
+                //if (ex.Message == "Unauthorized")
+                //{
+                //    _status.UpdateMessage("Unauthorized Acces", "You shall not passed!");
+                //    await _window.ShowDialogAsync(_status, null, settings);
+                //}
+                //else
+                //{
+                //    _status.UpdateMessage("Fatal Exception", ex.Message);
+                //    await _window.ShowDialogAsync(_status, null, settings);
+
+                //}
+
+                //TryCloseAsync();
+            }
+            //await LoadProducts();
         }
         private async Task LoadProducts()
         {
@@ -50,7 +76,17 @@ namespace RMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => Products);
             }
         }
+        private async Task ResetSalesViewModel()
+        {
+            Cart = new BindingList<CartItemDisplayModel>();
+            // TODO:: Add clearing the selectedcartitem if its doing it itself
+            await LoadProducts();
 
+            NotifyOfPropertyChange(() => SubTotal);
+            NotifyOfPropertyChange(() => Tax);
+            NotifyOfPropertyChange(() => Total);
+            NotifyOfPropertyChange(() => CanCheckOut);
+        }
 
         private CartItemDisplayModel _selectedCartItem;
 
@@ -200,7 +236,7 @@ namespace RMDesktopUI.ViewModels
             get
             {
                 bool output = false;
-                if (SelectedCartItem != null && SelectedCartItem?.Product.QuantityInStock>0)
+                if (SelectedCartItem != null && SelectedCartItem?.QuantityInCart>0)
                 {
                     output = true;
                 }
@@ -224,6 +260,7 @@ namespace RMDesktopUI.ViewModels
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
             NotifyOfPropertyChange(() => CanCheckOut);
+            NotifyOfPropertyChange(() => CanAddToCart);
         }
         public bool CanCheckOut
         {
@@ -251,6 +288,7 @@ namespace RMDesktopUI.ViewModels
                 });
             }
             await _saleEndpoint.PostSale(sale);
+            await ResetSalesViewModel();
         }
     }
 }
