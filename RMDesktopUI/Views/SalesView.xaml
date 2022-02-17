@@ -56,7 +56,7 @@
             <TextBlock Text="Quantity"/>
             <TextBox Name="ItemQuantity" MinWidth="100" Margin="0 0 0 10"/>
             <Button x:Name="AddToCart" Content="Add to Cart" Margin="0 0 0 30"
-                    Padding="5"/>
+                    Padding="5" />
             <Button x:Name="RemoveFromCart" Content="Remove from Cart"
                     Padding="5"/>
         </StackPanel>

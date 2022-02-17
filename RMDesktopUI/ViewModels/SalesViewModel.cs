@@ -9,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RMDesktopUI.Library.Helper;
+using AutoMapper;
+using RMDesktopUI.Models;
+using System.Collections.Generic;
 
 namespace RMDesktopUI.ViewModels
 {
@@ -17,12 +20,13 @@ namespace RMDesktopUI.ViewModels
         private readonly IConfigHelper _configHelper;
         private IProductEndpoint _productEndpoint;
         private ISaleEndpoint _saleEndpoint;
-        public SalesViewModel(IProductEndpoint productEndpoint , IConfigHelper config , ISaleEndpoint saleEndpoint)
+        private IMapper _mapper;
+        public SalesViewModel(IProductEndpoint productEndpoint , IConfigHelper config , ISaleEndpoint saleEndpoint,IMapper mapper)
         {
             _configHelper = config;
             _productEndpoint = productEndpoint;
             _saleEndpoint = saleEndpoint;
-
+            _mapper = mapper;
         }
         protected override async void OnViewLoaded(object view)
         {
@@ -32,13 +36,13 @@ namespace RMDesktopUI.ViewModels
         private async Task LoadProducts()
         {
             var productLists = await _productEndpoint.GetAll();
-            // var products = _mapper.Map<List<ProductDisplayModel>>(productLists);
-            Products = new BindingList<ProductModel>(productLists);
+            var products = _mapper.Map<List<ProductDisplayModel>>(productLists);
+            Products = new BindingList<ProductDisplayModel>(products);
         }
 
-        private BindingList<ProductModel> _products;
+        private BindingList<ProductDisplayModel> _products;
 
-        public BindingList<ProductModel> Products
+        public BindingList<ProductDisplayModel> Products
         {
             get { return _products; }
             set {
@@ -48,10 +52,23 @@ namespace RMDesktopUI.ViewModels
         }
 
 
-        private ProductModel _selectedProduct;
+        private CartItemDisplayModel _selectedCartItem;
 
 
-        public ProductModel SelectedProduct
+        public CartItemDisplayModel SelectedCartItem
+        {
+            get { return _selectedCartItem; }
+            set
+            {
+                _selectedCartItem = value;
+                NotifyOfPropertyChange(() => SelectedCartItem);
+                NotifyOfPropertyChange(() => CanRemoveFromCart);
+            }
+        }
+        private ProductDisplayModel _selectedProduct;
+
+
+        public ProductDisplayModel SelectedProduct
         {
             get { return _selectedProduct; }
             set
@@ -63,9 +80,9 @@ namespace RMDesktopUI.ViewModels
         }
 
 
-        private BindingList<CartItemModel> _cart = new BindingList<CartItemModel>();
+        private BindingList<CartItemDisplayModel> _cart = new BindingList<CartItemDisplayModel>();
 
-        public BindingList<CartItemModel> Cart
+        public BindingList<CartItemDisplayModel> Cart
         {
             get { return _cart; }
             set
@@ -155,16 +172,16 @@ namespace RMDesktopUI.ViewModels
         }
         public void AddToCart()
         {
-            CartItemModel existingItem = Cart.FirstOrDefault(x => x.Product == SelectedProduct);
+            CartItemDisplayModel existingItem = Cart.FirstOrDefault(x => x.Product == SelectedProduct);
             if(existingItem != null)
             {
                 existingItem.QuantityInCart += ItemQuantity;
-                Cart.Remove(existingItem);
-                Cart.Add(existingItem);
+                //Cart.Remove(existingItem);
+                //Cart.Add(existingItem);
             }
             else
             {
-                CartItemModel item = new CartItemModel
+                CartItemDisplayModel item = new CartItemDisplayModel
                 {
                     Product = SelectedProduct,
                     QuantityInCart = ItemQuantity
@@ -183,13 +200,26 @@ namespace RMDesktopUI.ViewModels
             get
             {
                 bool output = false;
-
+                if (SelectedCartItem != null && SelectedCartItem?.Product.QuantityInStock>0)
+                {
+                    output = true;
+                }
                 return output;
+
 
             }
         }
         public void RemoveFromCart()
         {
+            SelectedCartItem.Product.QuantityInStock += 1;
+            if (SelectedCartItem.QuantityInCart > 1)
+            {
+                SelectedCartItem.QuantityInCart -= -1;
+            }
+            else
+            {
+                Cart.Remove(SelectedCartItem);
+            }
             NotifyOfPropertyChange(() => SubTotal);
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
@@ -215,7 +245,7 @@ namespace RMDesktopUI.ViewModels
             {
                 sale.SaleDetails.Add(new SaleDetailModel
                     {
-                    ProductId = item.Product.id,
+                    ProductId = item.Product.Id,
                     Quantity = item.QuantityInCart
 
                 });
