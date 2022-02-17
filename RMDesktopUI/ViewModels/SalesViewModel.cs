@@ -18,6 +18,7 @@ namespace RMDesktopUI.ViewModels
 {
     public class SalesViewModel : Screen
     {
+       // private IAPIHelper _apiHelper;
         private readonly IConfigHelper _configHelper;
         private IProductEndpoint _productEndpoint;
         private ISaleEndpoint _saleEndpoint;
@@ -28,6 +29,7 @@ namespace RMDesktopUI.ViewModels
             _productEndpoint = productEndpoint;
             _saleEndpoint = saleEndpoint;
             _mapper = mapper;
+          
         }
         protected override async void OnViewLoaded(object view)
         {
