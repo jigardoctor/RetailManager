@@ -1,4 +1,4 @@
-﻿ using RMDataManager.Library.Internal.DataAccess;
+﻿  using RMDataManager.Library.Internal.DataAccess;
 using RMDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
@@ -106,6 +106,13 @@ namespace RMDataManager.Library.DataAccess
             //    _sql.RollbackTransaction();
             //    throw;
             //}
-        } 
+        }
+
+        public List<SaleReportModel> GetSaleReport()
+        {
+            SqlDataAccess sql = new SqlDataAccess();
+            var output = sql.LoadData<SaleReportModel, dynamic>("dbo.spSale_SaleReport", new { }, "RMData");
+            return output;
+        }
     }
 }

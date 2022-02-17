@@ -19,7 +19,15 @@ namespace RMDataManager.Controllers
 
             string userId = RequestContext.Principal.Identity.GetUserId();
             data.SaveSale(sale, userId);
-            
+
+        } 
+       // [Authorize(Roles = "Admin,Manager")]
+        [Route("GetSalesReport")]
+       // [HttpGet]
+        public List<SaleReportModel> GetSalesReports()
+        {
+            SaleData data = new SaleData();
+            return data.GetSaleReport();
         }
 
     }
