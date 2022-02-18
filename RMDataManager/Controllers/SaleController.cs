@@ -13,6 +13,7 @@ namespace RMDataManager.Controllers
     [Authorize]
     public class SaleController : ApiController
     {
+        [Authorize(Roles = "Cashier")]
         public void Post(SaleModel sale)
         {
             SaleData data = new SaleData();
@@ -21,11 +22,19 @@ namespace RMDataManager.Controllers
             data.SaveSale(sale, userId);
 
         } 
-       // [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin,Manager")]
         [Route("GetSalesReport")]
-       // [HttpGet]
+        [HttpGet]
         public List<SaleReportModel> GetSalesReports()
         {
+           //if(RequestContext.Principal.IsInRole("Admin"))
+           // {
+           //     // do admin roll    
+           // }
+           // else if (RequestContext.Principal.IsInRole("Manager"))
+           // {
+           //     //do manager role
+           // }
             SaleData data = new SaleData();
             return data.GetSaleReport();
         }

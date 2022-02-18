@@ -11,7 +11,7 @@ namespace RMDataManager.Controllers
 {
     public class ProductController : ApiController
     {
-        [Authorize]
+       [Authorize(Roles = "Cashier")]
         public List<ProductModel> Get()
         {
             ProductData data = new ProductData();
