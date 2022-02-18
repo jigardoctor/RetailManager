@@ -12,7 +12,8 @@ using RMDesktopUI.Library.Helper;
 using AutoMapper;
 using RMDesktopUI.Models;
  using System.Collections.Generic;
-
+using System.Windows;
+using System.Dynamic;
 
 namespace RMDesktopUI.ViewModels
 {
@@ -23,13 +24,16 @@ namespace RMDesktopUI.ViewModels
         private IProductEndpoint _productEndpoint;
         private ISaleEndpoint _saleEndpoint;
         private IMapper _mapper;
-        public SalesViewModel(IProductEndpoint productEndpoint , IConfigHelper config , ISaleEndpoint saleEndpoint,IMapper mapper)
+        private StatusInfoViewModel _status;
+        private IWindowManager _window;
+        public SalesViewModel(IProductEndpoint productEndpoint , IConfigHelper config , ISaleEndpoint saleEndpoint,IMapper mapper,StatusInfoViewModel status,IWindowManager window)
         {
             _configHelper = config;
             _productEndpoint = productEndpoint;
             _saleEndpoint = saleEndpoint;
             _mapper = mapper;
-          
+            _status = status;
+            _window = window;
         }
         protected override async void OnViewLoaded(object view)
         {
@@ -40,26 +44,27 @@ namespace RMDesktopUI.ViewModels
             }
             catch (Exception ex)
             {
-                //dynamic settings = new ExpandoObject();
-                //settings.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                //settings.ResizeMode = ResizeMode.NoResize;
-                //settings.Title = "System Error";
+                dynamic settings = new ExpandoObject();
+                settings.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                settings.ResizeMode = ResizeMode.NoResize;
+                settings.Title = "System Error";
 
-                //if (ex.Message == "Unauthorized")
-                //{
-                //    _status.UpdateMessage("Unauthorized Acces", "You shall not passed!");
-                //    await _window.ShowDialogAsync(_status, null, settings);
+                if (ex.Message == "Unauthorized")
+                {
+                    _status.UpdateMessage("Unauthorized Acces", "You shall not passed!");
+                _window.ShowDialog(_status, null, settings);
+                }
+                else
+                {
+                _status.UpdateMessage("Fatal Exception", ex.Message);
+                 _window.ShowDialog(_status, null, settings);
+
+                }
+
+                TryClose();
                 //}
-                //else
-                //{
-                //    _status.UpdateMessage("Fatal Exception", ex.Message);
-                //    await _window.ShowDialogAsync(_status, null, settings);
-
-                //}
-
-                //TryCloseAsync();
+                //await LoadProducts();
             }
-            //await LoadProducts();
         }
         private async Task LoadProducts()
         {
