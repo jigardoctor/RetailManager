@@ -14,11 +14,11 @@ namespace RMDesktopUI.ViewModels
    public class ShellViewModel : Conductor<object> , IHandle<LogOnEvent>
     {
         private ILoggedInUserModel _user;
-      private  SimpleContainer _container;
+        //private  SimpleContainer _container;
         private IEventAggregator _events;
         private SalesViewModel _saleVM;
         private IAPIHelper _apiHelper;
-        public ShellViewModel(IEventAggregator events,SalesViewModel saleVM,SimpleContainer container ,ILoggedInUserModel user, IAPIHelper apiHelper)
+        public ShellViewModel(IEventAggregator events,SalesViewModel saleVM,ILoggedInUserModel user, IAPIHelper apiHelper)
         {
             _events = events;
             _saleVM = saleVM;
