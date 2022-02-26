@@ -255,19 +255,24 @@ namespace RMDesktopUI.ViewModels
         public void RemoveFromCart()
         {
             SelectedCartItem.Product.QuantityInStock += 1;
+
             if (SelectedCartItem.QuantityInCart > 1)
             {
-                SelectedCartItem.QuantityInCart -= -1;
+                SelectedCartItem.QuantityInCart -= 1;
             }
             else
             {
                 Cart.Remove(SelectedCartItem);
             }
+
             NotifyOfPropertyChange(() => SubTotal);
             NotifyOfPropertyChange(() => Tax);
             NotifyOfPropertyChange(() => Total);
             NotifyOfPropertyChange(() => CanCheckOut);
             NotifyOfPropertyChange(() => CanAddToCart);
+
+
+            
         }
         public bool CanCheckOut
         {
