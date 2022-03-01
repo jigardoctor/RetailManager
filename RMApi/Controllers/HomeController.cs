@@ -30,24 +30,24 @@ namespace RMApi.Controllers
 
         public async Task <IActionResult> Privacy()
         {
-            //string[] roles = { "Admin", "Manager", "Cashier" };
-            //foreach (var role in roles)
-            //{
-            //    var roleExists = await _roleManager.RoleExistsAsync(role);
-            //    if(roleExists == false)
-            //    {
-            //        await _roleManager.CreateAsync(new IdentityRole(role));
-            //    }
-            //}
-            //var user = await _userManager.FindByEmailAsync("digital@gmail.com");
-            //if (user != null)
-            //{
-            //    _userManager.AddToRoleAsync(user, "Admin");
+            string[] roles = { "Admin", "Manager", "Cashier" };
+            foreach (var role in roles)
+            {
+                var roleExists = await _roleManager.RoleExistsAsync(role);
+                if (roleExists == false)
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+                }
+            }
+            var user = await _userManager.FindByEmailAsync("digital@gmail.com");
+            if (user != null)
+            {
+                _userManager.AddToRoleAsync(user, "Admin");
 
-            //    _userManager.AddToRoleAsync(user, "Manager");
+                _userManager.AddToRoleAsync(user, "Manager");
 
-            //    _userManager.AddToRoleAsync(user, "Cashier");
-            //}
+                _userManager.AddToRoleAsync(user, "Cashier");
+            }
             return View();
         }
 

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,11 +13,15 @@ namespace RMDataManager.Library.Internal.DataAccess
 {
     public class SqlDataAccess : IDisposable
     {
-       // private readonly IConfiguration _config;
+        private readonly IConfiguration _config;
+        public SqlDataAccess(IConfiguration config)
+        {
+            _config = config;
+        }
       //  private readonly ILogger<SqlDataAccess> _logger;
         public string GetConnectionString(string name)
         {
-            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+            return _config.GetConnectionString(name);// return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
         public List<T> LoadData<T, U>(string storeProcedure, U parameters, string connectionStringName)
         {

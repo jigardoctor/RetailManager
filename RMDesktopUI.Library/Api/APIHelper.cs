@@ -31,7 +31,7 @@ namespace RMDesktopUI.Library.Api
         }
         private void InitiazeClient()
         {
-            string api =     ConfigurationManager.AppSettings["api"].ToString();
+            string api = ConfigurationManager.AppSettings["api"].ToString();
             _apiClient = new HttpClient();
             _apiClient.BaseAddress = new Uri(api);
             _apiClient.DefaultRequestHeaders.Accept.Clear();
