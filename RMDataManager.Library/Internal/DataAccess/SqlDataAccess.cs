@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace RMDataManager.Library.Internal.DataAccess
 {
-    public class SqlDataAccess : IDisposable
+    public class SqlDataAccess : IDisposable, ISqlDataAccess
     {
         private readonly IConfiguration _config;
         public SqlDataAccess(IConfiguration config)
         {
             _config = config;
         }
-      //  private readonly ILogger<SqlDataAccess> _logger;
+        //  private readonly ILogger<SqlDataAccess> _logger;
         public string GetConnectionString(string name)
         {
             return _config.GetConnectionString(name);// return ConfigurationManager.ConnectionStrings[name].ConnectionString;
@@ -73,7 +73,7 @@ namespace RMDataManager.Library.Internal.DataAccess
             _connection.Execute(storedProcedure, parameters,
                 commandType: CommandType.StoredProcedure, transaction: _transaction);
         }
-        
+
         public void CommitTransaction()
         {
             _transaction?.Commit();
@@ -96,9 +96,9 @@ namespace RMDataManager.Library.Internal.DataAccess
                 {
                     CommitTransaction();
                 }
-                catch 
+                catch
                 {
-                  //  _logger.LogError(ex, "Commit transaction failed in the dispose method.");
+                    //  _logger.LogError(ex, "Commit transaction failed in the dispose method.");
                 }
             }
 
