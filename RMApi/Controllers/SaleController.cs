@@ -23,7 +23,8 @@ namespace RMApi.Controllers
         {
             _config = config;
         }
-        [Authorize(Roles = "Cashier")]
+        [Authorize(Roles = "Admin, Manager,Cashier")]
+        [HttpPost ]
         public void Post(SaleModel sale)
         {
             SaleData data = new SaleData(_config);
