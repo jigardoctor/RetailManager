@@ -51,5 +51,13 @@ namespace RMApi.Controllers
            // SaleData data = new SaleData(_config);
             return _saleData.GetSaleReport();
         }
+        [AllowAnonymous]
+        [Route("GetTaxRate")]
+        [HttpGet]
+        public decimal GetTaxRate()
+        {
+
+            return _saleData.GetTaxRate();
+        }
     }
 }

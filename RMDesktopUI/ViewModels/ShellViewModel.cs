@@ -27,7 +27,7 @@ namespace RMDesktopUI.ViewModels
             _user = user;
             _apiHelper = apiHelper;
             _events.SubscribeOnPublishedThread(this);
-            ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());
+           // ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());
         }
         public void ExitApplication()
         {
@@ -60,16 +60,17 @@ namespace RMDesktopUI.ViewModels
                 return !IsLoggedIn;
             }
         }
-        //public async Task LogIn()
-        //{
-        //    await ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());
-        //}
+        public async Task LogIn()
+        {
+            await ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());
+        }
         public async Task LogOut()
         {
             _user.ResetUserModel();
             _apiHelper.LogOffUser();
           await  ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());
             NotifyOfPropertyChange(() => IsLoggedIn);
+            NotifyOfPropertyChange(() => IsLoggedOut);
         }
         public async Task UserManagement()
         {
@@ -80,6 +81,7 @@ namespace RMDesktopUI.ViewModels
         {
          await   ActivateItemAsync(_saleVM,cancellationToken);
             NotifyOfPropertyChange(() => IsLoggedIn);
+            NotifyOfPropertyChange(() => IsLoggedOut);
         }
     }
 }

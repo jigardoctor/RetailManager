@@ -3,6 +3,7 @@ using RMDataManager.Library.Internal.DataAccess;
 using RMDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,20 +14,31 @@ namespace RMDataManager.Library.DataAccess
     {
         private readonly IProductData _productData;
         private readonly ISqlDataAccess _sql;
-       // private readonly IConfiguration _config;
+       private readonly IConfiguration _config;
 
-        public SaleData(IProductData productData, ISqlDataAccess sql)
+        public SaleData(IProductData productData, ISqlDataAccess sql, IConfiguration config)
         {
             _productData = productData;
             _sql = sql;
-           // _config = config;
+            _config = config;
         }
 
+        public decimal GetTaxRate()
+        {
+            string rateText = _config.GetValue<string>("TaxRate");
+            bool IsVisibleTaxRate = Decimal.TryParse(rateText, out decimal output);
+            if (IsVisibleTaxRate == false)
+            {
+                throw new ConfigurationErrorsException("Tax rate is not proper");
+            }
+            output = output / 100;
+            return output;
+        }
         public void SaveSale(SaleModel saleInfo, string cashierId)
         {
             List<SaleDetailDBModel> details = new List<SaleDetailDBModel>();
-          //  ProductData products = new ProductData(_config);
-            var taxRate = ConfigHelper.GetTaxRate() / 100;
+            //  ProductData products = new ProductData(_config);
+            var taxRate = GetTaxRate();
             foreach (var item in saleInfo.SaleDetails)
             {
                 var detail = new SaleDetailDBModel
