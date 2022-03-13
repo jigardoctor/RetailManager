@@ -66,8 +66,6 @@ namespace RMDataManager.Library.DataAccess
                 CashierId = cashierId
             };
             sale.Total = sale.SubTotal + sale.Tax;
-
-            //using (SqlDataAccess sql = new SqlDataAccess(_config))
             {
 
                 try

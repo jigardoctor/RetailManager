@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[HostName]
+(
+	[IdHostName] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [HostName] NCHAR(150) NOT NULL, 
+    [GstNo] NCHAR(20) NOT NULL, 
+    [FirmType] NCHAR(50) NOT NULL, 
+    [TotalSale] DECIMAL NULL DEFAULT 0, 
+    [FY] NCHAR(15) NOT NULL, 
+    [YEAR] DATETIME2 NOT NULL, 
+    [TOYEAR] DATETIME2 NOT NULL, 
+)
