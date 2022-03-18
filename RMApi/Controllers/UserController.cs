@@ -51,22 +51,14 @@ namespace RMApi.Controllers
         public List<ApplicationUserModel> GetAllUsers()
         {
             List<ApplicationUserModel> output = new List<ApplicationUserModel>();
-           
-
-
-                var users = _context.Users.ToList();
+            var users = _context.Users.ToList();
             var userRoles = from ur in _context.UserRoles
                             join r in _context.Roles on ur.RoleId equals r.Id
                             select new { ur.UserId, ur.RoleId, r.Name };
-
-
-
                 //var users = context.Users.ToList();
-
                 //var userRoles = from ur in context.UserRoles
                 //                join r in context.Roles on ur.RoleId equals r.Id
                 //                select new { ur.UserId, ur.RoleId, r.Name };
-
                 foreach (var user in users)
                 {
                     ApplicationUserModel u = new ApplicationUserModel

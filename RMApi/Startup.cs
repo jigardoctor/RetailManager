@@ -45,6 +45,7 @@ namespace RMApi
             services.AddTransient<IProductData, ProductData>();
             services.AddTransient<ISaleData, SaleData>();
             services.AddTransient<IUserData, UserData>();
+            services.AddTransient<IBranchData, BranchData>();
 
             services.AddAuthentication(options =>
             {

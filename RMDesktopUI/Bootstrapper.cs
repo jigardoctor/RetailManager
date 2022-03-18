@@ -47,7 +47,9 @@ namespace RMDesktopUI
             _container.Instance(_container)
             .PerRequest<IProductEndpoint, ProductEndpoint>()
             .PerRequest<IUserEndpoint , UserEndpoint>() 
-             .PerRequest<ISaleEndpoint, SaleEndpoint>();
+             .PerRequest<ISaleEndpoint, SaleEndpoint>()
+             .PerRequest<IBranchEndpoint, BranchEndpoint>();
+            
             _container.Instance(ConfigureAutoMapper());
             _container
                 .Singleton<IWindowManager, WindowManager>()

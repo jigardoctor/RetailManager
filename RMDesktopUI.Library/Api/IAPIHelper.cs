@@ -1,5 +1,5 @@
 ﻿
-using RMDesktopUI.Models;
+using RMDesktopUI.Library.Model;
 using System.Net.Http;
 using System.Threading.Tasks;
 

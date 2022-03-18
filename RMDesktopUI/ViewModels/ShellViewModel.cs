@@ -60,6 +60,10 @@ namespace RMDesktopUI.ViewModels
                 return !IsLoggedIn;
             }
         }
+        public async Task Branch()
+        {
+            await ActivateItemAsync(IoC.Get<BranchViewModel>(), new CancellationToken());
+        }
         public async Task LogIn()
         {
             await ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());

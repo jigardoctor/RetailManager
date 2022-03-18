@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RMDataManager.Library.DataAccess;
+using RMDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +14,38 @@ namespace RMApi.Controllers
     [ApiController]
     public class EmController : ControllerBase
     {
-        private readonly IemBranch _embranch;
+        private readonly IBranchData _Branch;
 
-        public EmController(IemBranch embranch)
+        public EmController(IBranchData branch)
         {
-            _embranch = embranch;
+            _Branch = branch;
         }
 
         [HttpGet]
-        public List<emBranch> Get()
+        public List<BranchModel> Get()
         {
             //ProductData data = new ProductData(_config);
-            return _embranch.GetBranch();
+            return _Branch.GetBranch();
+        }
+        [HttpPost]
+        [Route("Admin/Add")]
+        public void Post(BranchModel branch)
+        {
+
+            _Branch.AddBranch( branch);
+
+        }
+        [HttpPost]
+        [Route("Admin/Remove")]
+        public void Delete(BranchModel branch)
+        {
+            _Branch.RemoveBranch(branch);
+        }
+        [HttpPost]
+        [Route("Admin/Edit")]
+        public void Edit(BranchModel branch)
+        {
+            _Branch.EditBranch(branch);
         }
     }
 }

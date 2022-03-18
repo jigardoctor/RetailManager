@@ -64,10 +64,8 @@ namespace RMDesktopUI.Library.Api
             var data = new { userId, roleName };
             using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync("/api/User/Admin/RemoveRole", data))
             {
-              
                 if (response.IsSuccessStatusCode == false)
                 {
-
                     throw new Exception(response.ReasonPhrase);
                 }
             }

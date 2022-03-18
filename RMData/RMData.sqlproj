@@ -89,6 +89,9 @@
     <Build Include="dbo\Tables\Salary.sql" />
     <Build Include="dbo\Stored Procedures\emBranch_GetAll.sql" />
     <Build Include="dbo\Stored Procedures\emBranch_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\emBranch_Add.sql" />
+    <Build Include="dbo\Stored Procedures\emBranch_Remove.sql" />
+    <Build Include="dbo\Stored Procedures\emBranch_Edit.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="RMData.refactorlog" />
