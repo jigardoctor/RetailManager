@@ -18,38 +18,13 @@ namespace RMDesktopUI.ViewModels
         private IEventAggregator _events;
         private StatusInfoViewModel _status;
         private IWindowManager _window;
-        private IMapper _mapper;
-        public BranchViewModel(IMapper mapper, IBranchEndpoint branchEndpoint, IEventAggregator events, IWindowManager window, StatusInfoViewModel status)
+
+        public BranchViewModel( IBranchEndpoint branchEndpoint, IEventAggregator events, IWindowManager window, StatusInfoViewModel status)
         {
             _events = events;
             _branchEndpoint = branchEndpoint;
             _status = status;
             _window = window;
-            _mapper = mapper;
-        }
-        private BindingList<BranchModel> _BranchList;
-
-        public BindingList<BranchModel> BranchList
-        {
-            get { return _BranchList; }
-            set
-            {
-                _BranchList = value;
-                NotifyOfPropertyChange(() => BranchList);
-            }
-        }
-        private BranchModel _SelectedBranch;
-
-        public BranchModel SelectedBranch
-        {
-            get { return _SelectedBranch; }
-            set
-            {
-                _SelectedBranch = value;
-                NotifyOfPropertyChange(() => SelectedBranch);
-                NotifyOfPropertyChange(() => CanRemovebt);
-                NotifyOfPropertyChange(() => CanEditbt);
-            }
         }
         protected override async void OnViewLoaded(object view)
         {
@@ -84,9 +59,34 @@ namespace RMDesktopUI.ViewModels
         private async Task LoadProducts()
         {
             var BranchLists = await _branchEndpoint.GetAll();
-           // var branches = _mapper.Map<List<BranchModel>>(BranchLists);
+            // var branches = _mapper.Map<List<BranchModel>>(BranchLists);
             BranchList = new BindingList<BranchModel>(BranchLists);
-         }
+        }
+        private BindingList<BranchModel> _BranchList;
+
+        public BindingList<BranchModel> BranchList
+        {
+            get { return _BranchList; }
+            set
+            {
+                _BranchList = value;
+                NotifyOfPropertyChange(() => BranchList);
+            }
+        }
+        private BranchModel _SelectedBranch;
+
+        public BranchModel SelectedBranch
+        {
+            get { return _SelectedBranch; }
+            set
+            {
+                _SelectedBranch = value;
+                NotifyOfPropertyChange(() => SelectedBranch);
+                NotifyOfPropertyChange(() => CanRemovebt);
+                NotifyOfPropertyChange(() => CanEditbt);
+            }
+        }
+        
         private string _Branchnametx;
 
         public string Branchnametx

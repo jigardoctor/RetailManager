@@ -64,6 +64,11 @@ namespace RMDesktopUI.ViewModels
         {
             await ActivateItemAsync(IoC.Get<BranchViewModel>(), new CancellationToken());
         }
+
+        public async Task Client()
+        {
+            await ActivateItemAsync(IoC.Get<ClientViewModel>(), new CancellationToken());
+        }
         public async Task LogIn()
         {
             await ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());

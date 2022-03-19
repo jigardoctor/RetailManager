@@ -15,20 +15,53 @@ namespace RMApi.Controllers
     public class EmController : ControllerBase
     {
         private readonly IBranchData _Branch;
+        private readonly IClientData _client;
 
-        public EmController(IBranchData branch)
+        public EmController(IBranchData branch,IClientData client)
         {
             _Branch = branch;
+           _client = client;
+        }
+        [HttpGet]
+        [Route("Admin/Client")]
+        public List<ClientModel> GetClient()
+        {
+           return _client.Getclient();
+        }
+        [HttpPost]
+        [Route("Admin/AddClient")]
+        public void PostClient(ClientModel client)
+        {
+
+            _client.Addclient(client);
+
+        }
+        [HttpPost]
+        [Route("Admin/RemoveClient")]
+        public void DeleteClient(ClientModel client)
+        {
+            _client.Removeclient(client);
+        }
+        [HttpPost]
+        [Route("Admin/EditClient")]
+        public void EditClient(ClientModel client)
+        {
+            _client.Editclient(client);
         }
 
+
+
+
+
         [HttpGet]
+        [Route("Admin/Branch")]
         public List<BranchModel> Get()
         {
             //ProductData data = new ProductData(_config);
             return _Branch.GetBranch();
         }
         [HttpPost]
-        [Route("Admin/Add")]
+        [Route("Admin/AddBranch")]
         public void Post(BranchModel branch)
         {
 
@@ -36,13 +69,13 @@ namespace RMApi.Controllers
 
         }
         [HttpPost]
-        [Route("Admin/Remove")]
+        [Route("Admin/RemoveBranch")]
         public void Delete(BranchModel branch)
         {
             _Branch.RemoveBranch(branch);
         }
         [HttpPost]
-        [Route("Admin/Edit")]
+        [Route("Admin/EditBranch")]
         public void Edit(BranchModel branch)
         {
             _Branch.EditBranch(branch);

@@ -2,25 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RMDesktopUI.Library.Api
 {
-    public class BranchEndpoint : IBranchEndpoint
+    public class ClientEndpoint : IClientEndpoint
     {
-        private IAPIHelper _apiHelper;
+        private readonly IAPIHelper _apiHelper;
 
-        public BranchEndpoint(IAPIHelper apiHelper)
+        public ClientEndpoint(IAPIHelper apiHelper)
         {
             _apiHelper = apiHelper;
         }
-        public async Task<List<BranchModel>> GetAll()
+
+        public async Task<List<ClientModel>> GetAll()
         {
-            using (HttpResponseMessage responce = await _apiHelper.ApiClient.GetAsync("/api/Em/Admin/Branch"))
+            using (HttpResponseMessage responce = await _apiHelper.ApiClient.GetAsync("/api/Em/Admin/Client"))
             {
                 if (responce.IsSuccessStatusCode)
                 {
-                    var result = await responce.Content.ReadAsAsync<List<BranchModel>>();
+                    var result = await responce.Content.ReadAsAsync<List<ClientModel>>();
                     return result;
                 }
                 else
@@ -29,10 +31,10 @@ namespace RMDesktopUI.Library.Api
                 }
             }
         }
-        public async Task AddBranch(BranchModel brancmodel)
+        public async Task AddBranch(ClientModel clientmodel)
         {
             var data = new { };
-            using (HttpResponseMessage responce = await _apiHelper.ApiClient.PostAsJsonAsync("/api/Em/Admin/AddBranch", brancmodel))
+            using (HttpResponseMessage responce = await _apiHelper.ApiClient.PostAsJsonAsync("/api/Em/Admin/AddClient", clientmodel))
             {
                 if (responce.IsSuccessStatusCode)
                 {
@@ -44,10 +46,10 @@ namespace RMDesktopUI.Library.Api
                 }
             }
         }
-        public async Task RemoveBranch(BranchModel brancmodel)
+        public async Task RemoveBranch(ClientModel clientmodel)
         {
             //var data = new { branchId };
-            using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync("/api/Em/Admin/RemoveBranch", brancmodel))
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync("/api/Em/Admin/RemoveClient", clientmodel))
             {
                 if (response.IsSuccessStatusCode == false)
                 {
@@ -55,10 +57,10 @@ namespace RMDesktopUI.Library.Api
                 }
             }
         }
-        public async Task EditBranch(BranchModel brancmodel)
+        public async Task EditBranch(ClientModel clientmodel)
         {
             //var data = new { branchId };
-            using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync("/api/Em/Admin/EditBranch", brancmodel))
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync("/api/Em/Admin/EditClient", clientmodel))
             {
                 if (response.IsSuccessStatusCode == false)
                 {
@@ -68,3 +70,4 @@ namespace RMDesktopUI.Library.Api
         }
     }
 }
+

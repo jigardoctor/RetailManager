@@ -92,6 +92,11 @@
     <Build Include="dbo\Stored Procedures\emBranch_Add.sql" />
     <Build Include="dbo\Stored Procedures\emBranch_Remove.sql" />
     <Build Include="dbo\Stored Procedures\emBranch_Edit.sql" />
+    <Build Include="dbo\Stored Procedures\emClient_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\emClient_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\emClient_Add.sql" />
+    <Build Include="dbo\Stored Procedures\emClient_Edit.sql" />
+    <Build Include="dbo\Stored Procedures\emClient_Remove.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="RMData.refactorlog" />

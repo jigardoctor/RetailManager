@@ -8,6 +8,7 @@
 	<ItemGroup>
 	  <PackageReference Include="AutoMapper" Version="11.0.1" />
 	  <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
+	  <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\RMDesktopUI.Library\RMDesktopUI.Library.csproj" />

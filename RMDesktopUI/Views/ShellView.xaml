@@ -21,6 +21,7 @@
             </MenuItem>
             <MenuItem Header="_Master" Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
                 <MenuItem x:Name="Branch" Header="_Branch"  Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                <MenuItem x:Name="Client" Header="_Client"  Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
             </MenuItem>
         </Menu>
         <Grid>
