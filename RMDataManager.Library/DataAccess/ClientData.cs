@@ -17,7 +17,7 @@ namespace RMDataManager.Library.DataAccess
         public List<ClientModel> Getclient()
         {
             // SqlDataAccess sql = new SqlDataAccess(_config);
-            var output = _sql.LoadData<ClientModel, dynamic>("dbo.emclient_GetAll", new { }, "RMData");
+            var output = _sql.LoadData<ClientModel, dynamic>("dbo.emClient_GetAll", new { }, "RMData");
             return output;
 
         }
@@ -25,14 +25,14 @@ namespace RMDataManager.Library.DataAccess
         {
             //SqlDataAccess sql = new SqlDataAccess(_config);
             var p = new { Id = Idclient };
-            var output = _sql.LoadData<ClientModel, dynamic>("dbo.emclient_GetById", p, "RMData");
+            var output = _sql.LoadData<ClientModel, dynamic>("dbo.emClient_GetById", p, "RMData");
             return output;
 
         }
         public void Addclient(ClientModel client)
         {
             _sql.StartTransaction("RMData");
-            _sql.SaveDataInTransaction<ClientModel>("dbo.emclient_Add", client);
+            _sql.SaveDataInTransaction<ClientModel>("dbo.emClient_Add", client);
 
         }
         public void Removeclient(ClientModel client)
@@ -44,7 +44,7 @@ namespace RMDataManager.Library.DataAccess
         public void Editclient(ClientModel client)
         {
             _sql.StartTransaction("RMData");
-            _sql.SaveDataInTransaction<ClientModel>("dbo.emclient_Edit", client);
+            _sql.SaveDataInTransaction<ClientModel>("dbo.emClient_Edit", client);
         }
 
     }

@@ -156,7 +156,7 @@ namespace RMDesktopUI.ViewModels
             BranchModel brancmodel = new BranchModel();
             brancmodel.IdBranch = SelectedBranch.IdBranch;
             brancmodel.BranchName = Branchnametx;
-
+            brancmodel.Ho = true;
             await _branchEndpoint.EditBranch(brancmodel);
             await LoadProducts();
         }

@@ -44,6 +44,8 @@ namespace RMDataManager.Library.DataAccess
         }
         public void EditBranch(BranchModel branch)
         {
+            //var p = new { IdBranch = branch.IdBranch ,BranchName= branch.BranchName,Ho =branch.Ho};
+            //_sql.SaveData("dbo.emBranch_Edit", p, "RMData");
             _sql.StartTransaction("RMData");
             _sql.SaveDataInTransaction<BranchModel>("dbo.emBranch_Edit", branch);
         }

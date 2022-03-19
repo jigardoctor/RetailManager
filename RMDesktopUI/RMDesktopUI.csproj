@@ -6,9 +6,17 @@
 		
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="Views\logView.xaml.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Remove="Views\logView.xaml" />
+	</ItemGroup>
+	<ItemGroup>
 	  <PackageReference Include="AutoMapper" Version="11.0.1" />
 	  <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
 	  <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+	  <PackageReference Include="MaterialDesignColors" Version="2.0.4" />
+	  <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\RMDesktopUI.Library\RMDesktopUI.Library.csproj" />
