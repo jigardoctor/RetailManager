@@ -5,54 +5,66 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RMDesktopUI.Views"
              mc:Ignorable="d" Background="WhiteSmoke" FontSize="18"
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="350">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="Branches" Grid.Row="1" Grid.Column="0"/>
-        <ListBox Width="150" x:Name="BranchList" Grid.Row="2" Grid.Column="0"
+        <Grid>
+            <Rectangle Height="280" VerticalAlignment="Top">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF2281D1"/>
+                        <GradientStop Color="#FF34268A" Offset="1"/>
+                        <GradientStop Color="#FF33288B" Offset="0.546"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Rectangle Width="280" Height="316" VerticalAlignment="Top" Margin="35,80,35,0" RadiusY="10" RadiusX="10" Fill="White">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
+                </Rectangle.Effect>
+            </Rectangle>
+
+            <Grid VerticalAlignment="Top" Margin="35,84,35,0" Height="436">
+                <Label Content="Branch List" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Gray" FontSize="18"/>
+                <StackPanel VerticalAlignment="Top" Margin="23,40,23,0" Height="500">
+                    <ListBox Width="197" x:Name="BranchList" Grid.Row="2" Grid.Column="0"
                  MinHeight="200" MinWidth="150" SelectedItem="{Binding SelectedBranch}">
-            <ListBox.ItemTemplate >
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding BranchName}"/>
+                        <ListBox.ItemTemplate >
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding BranchName}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                <TextBlock HorizontalAlignment="Center" Margin="0 0 5 10">
+                    Branch Name
+                    </TextBlock>
+                    <TextBox x:Name="Branchnametx"  MinWidth="120" Margin="0,0,0,10" Text="" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="198" TextChanged="Branchname_tx_TextChanged"/>
+
+                    <StackPanel>
+
+                    <Grid>
+                        <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" x:Name="Add_bt" Width="65" Height="30" >
+                    Add
+                </Button>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" x:Name="Editbt" Width="60" Height="30" >
+                    Edit
+                </Button>
+                <Button  HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="Removebt" Width="70" >
+                    Remove
+                </Button>
+
+                        </Grid>
                     </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                </StackPanel>
+            </Grid>
+            <TextBlock Text="Software By Digital Shubham" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30" Foreground="Gray" Cursor="Hand"/>
 
 
-       <TextBlock Grid.Row="3" Grid.Column="1" Margin="0 0 5 10">
-           name
-        </TextBlock>
-        <TextBox x:Name="Branchnametx" Grid.Row="3" Grid.Column="1" MinWidth="250" 
-                 Margin="0,0,0,10" Text="" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="250" TextChanged="Branchname_tx_TextChanged"/>
-        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Padding="20 5"
-                HorizontalAlignment="Center" x:Name="Add_bt">
-            Add
-        </Button>
-        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Padding="20 5"
-                HorizontalAlignment="Left" x:Name="Removebt">
-            Remove
-        </Button>
-        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Padding="20 5"
-                HorizontalAlignment="Right" x:Name="Editbt">
-            Edit
-        </Button>
+
+
+
+        </Grid>
     </Grid>
 </UserControl>
